@@ -2,6 +2,7 @@
 # Introducción al raspado web con R y RStudio ----------------------------------------------------
 
 # Paquetes a cargar (función 'require()' es equivalente a la función 'library()') ----------------
+
 require(tidyverse)
 require(rvest)
 require(stringr)
@@ -9,6 +10,7 @@ require(tidytext)
 require(tm)
 
 # Creamos la función para raspar El Mundo cuyo nombre será 'scraping_EM()' ------------------------
+
 scraping_EM <- function (x){          # abro función para raspado web y le asigno un nombre: scraping_EM
 
   rvest::read_html(x) |>             # llamo a la función read_html() para obtener el contenido de la página
@@ -23,6 +25,7 @@ scraping_EM <- function (x){          # abro función para raspado web y le asig
 
 }                                     # cierro la función para raspado web
 # Usamos la función para scrapear el diario El Mundo ----------------------------------------------
+
 (El_Mundo <- scraping_EM("https://www.elmundo.es/espana.html"))
 
 # Tokenizamos los títulos de la sección 'España' del periódico El Mundo ---------------------------
