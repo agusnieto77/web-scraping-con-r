@@ -40,8 +40,8 @@ Una introducción a HTML, CSS y XPath: la importancia de las etiquetas para la r
 
 Tres soportes para una misma tarea: 
 
-- 1) ejecución automática de scripts en R desde una PC de escritorio o portátil; 
+- ejecución automática de scripts en R desde una PC de escritorio o portátil; 
 
-- 2) ejecución automática de scripts en R desde una Raspberry Pi; 
+- ejecución automática de scripts en R desde una Raspberry Pi; 
 
-- 3) ejecución automática de scripts en R desde una máquina virtual (VPS). Una introducción a crontab y a los paquetes cronR (Linux) y taskcheduleR (Windows).
+- ejecución automática de scripts en R desde una máquina virtual (VPS). Una introducción a crontab y a los paquetes cronR (Linux) y taskcheduleR (Windows).

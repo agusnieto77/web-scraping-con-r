@@ -52,11 +52,11 @@ purrr. Guardar la información raspada en formato tabular.
 
 Tres soportes para una misma tarea:
 
--   1.  ejecución automática de scripts en R desde una PC de escritorio
-        o portátil;
+-   ejecución automática de scripts en R desde una PC de escritorio o
+    portátil;
 
--   1.  ejecución automática de scripts en R desde una Raspberry Pi;
+-   ejecución automática de scripts en R desde una Raspberry Pi;
 
--   1.  ejecución automática de scripts en R desde una máquina virtual
-        (VPS). Una introducción a crontab y a los paquetes cronR (Linux)
-        y taskcheduleR (Windows).
+-   ejecución automática de scripts en R desde una máquina virtual
+    (VPS). Una introducción a crontab y a los paquetes cronR (Linux) y
+    taskcheduleR (Windows).
