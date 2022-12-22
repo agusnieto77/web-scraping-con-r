@@ -46,14 +46,14 @@ raspador <- function(link){
 }
 
 ## Seleccionamos 2 de los 10 links del objeto urls
-links <- urls[1:2]
+links <- urls[1:4]
 
 links
 
 ## Raspamos la información de interés dentro de un marco de datos con la función map_df()
-output <- purrr::map_df(urls[1:2], raspador)
+output <- purrr::map_df(links, raspador)
 
-## Pasamos a raspar el contenido de los 500 links recuperados
+## Pasamos a raspar el contenido de los 200 links recuperados
 ## Creamos el objeto links con 20 urls a las páginas de interés
 links <- repo$link[1:20]
 
@@ -65,18 +65,15 @@ titulo <- c()
 autoria <- c()
 fecha <- c()
 idioma <- c()
-tipo <- c()
-acceso <- c()
 cita <- c()
 link_permanente <- c()
-resumen <- c()
 items <- c()
 descripcion <- c()
 link <- c()
 
 ## Corremos un ciclo for
 for (i in links) {
-  html <- read_html(GET(i))
+  html <- read_html(httr::GET(i))
     titulo <- append(titulo, html |> html_element("h2.page-header.first-page-header") |> html_text2())
     autoria <- append(autoria, html |> html_elements(".col-sm-4 > div.simple-item-view-authors.item-page-field-wrapper.table > div") |> html_text2() |> paste(collapse = "; "))
     fecha <- append(fecha, html |> html_elements(xpath = "//*[@id='aspect_artifactbrowser_ItemViewer_div_item-view']/div/div/div[1]/div[3]/text()[2]") |> html_text2())
@@ -94,11 +91,8 @@ biblio <- tibble::tibble(
   autoria = autoria,
   fecha = fecha,
   idioma = idioma,
-  tipo = tipo,
-  acceso = acceso,
   cita = cita,
   link_permanente = link_permanente,
-  resumen = resumen,
   items = items,
   descripcion = descripcion,
   link = link
@@ -123,10 +117,11 @@ for (i in urls) {
     region = html |> html_elements(".card-body > .d-inline:nth-child(3)") |> html_text2(),
     hora = html |> html_elements(".card-body > .d-inline:nth-child(4)") |> html_text2(),
     lugar = html |> html_elements(".card-body > .d-inline:nth-child(5)") |> html_text2()
-  )) |> unique()
+  ))
 }
 
-curso
+cursos <- cursos |> unique()
+cursos
 
 ## EJEMPLO 3
 ## Creamos el objeto urls con los links a las páginas de interés
