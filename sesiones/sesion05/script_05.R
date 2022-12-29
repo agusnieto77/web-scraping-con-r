@@ -22,7 +22,7 @@ html |> html_elements("h4") |> html_text2()
 
 # Intentamos con RSelenium
 # Activamos el servidor selenium y un navegador
-servidor <- rsDriver(browser = "chrome", port = 1966L, chromever = "108.0.5359.22")
+servidor <- rsDriver(browser = "chrome", port = 1937L, chromever = "108.0.5359.22")
 
 # Creamos al usuario
 cliente <- servidor$client
@@ -33,7 +33,7 @@ cliente$navigate("https://eligetucurso.sence.cl/")
 # Buscamos los elemento del título y los guardamos en un objeto
 elementos <- cliente$findElements("class name", "cursoTitulo")
 
-# Creamos el vector con los titulso como cadena de caracteres en un vector
+# Creamos el vector con los titulo como cadena de caracteres en un vector
 unlist(lapply(elementos, function(x) x$getElementText()))
 
 # Buscamos los elemento del título y los guardamos en un objeto
@@ -115,7 +115,7 @@ html <- read_html(url)
 # Imprimimos en consola
 html
 
-# Raspamos el título de cada curso
+# Raspamos las fechas de cada curso
 html |> html_elements("#todos-eventos > div > div > div > div > div > div:nth-child(2)") |> html_text2()
 
 # Ahora lo intentamos con RSelenium
@@ -140,8 +140,8 @@ html <- cliente$getPageSource()[[1]] |> read_html()
 html |> html_elements("#todos-eventos > div > div > div > div > div > div:nth-child(2)") |> html_text2()
 
 # Cerramos cliente y paramos el servidor
-usuario$close()
-selenium$server$stop()
+cliente$close()
+servidor$server$stop()
 
 # Un ejemplo con contenedores
 # Para instalar Docker ver: https://docs.ropensci.org/RSelenium/articles/docker.html
@@ -167,7 +167,7 @@ url <- 'https://eligetucurso.sence.cl/'
 # Navegamos a la dirección url de los cursos
 dockerRS$navigate(url)
 
-# Obtenemso los títulos
+# Obtenemos los títulos
 dockerRS$getPageSource()[[1]] |>
   read_html() |>
   html_elements("h4.cursoTitulo.movitit") |>
