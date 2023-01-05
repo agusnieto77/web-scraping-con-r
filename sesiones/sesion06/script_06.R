@@ -206,7 +206,7 @@ cat("\014")
 url <- "https://agendaeventos.sercotec.cl/Centro/Detalle"
 
 # Creamos el vector de fechas para el año 2020
-fechas <- seq(as.Date("2020-01-01"), by="day", len=90)
+fechas <- seq(as.Date("2020-01-01"), by="day", len=91)
 
 # Creamos un  vector con los días de la semana
 diadelasemana <- lubridate::wday(fechas)
@@ -235,17 +235,17 @@ agendaeventos <- tibble()
 # Armamos el ciclo for para raspar todas las páginas
 for (i in seq_along(lunes$anio[1:2])) {
   date <- cliente$findElement(using = "css", value = '#txtFecha')
-  Sys.sleep(1)
+  Sys.sleep(3)
   date$sendKeysToElement(list(lunes[i,1]))
   date$sendKeysToElement(list(lunes[i,2]))
   date$sendKeysToElement(list(lunes[i,3]))
-  Sys.sleep(1)
+  Sys.sleep(3)
   cliente$findElement(using = "css selector",
                       value = "body > div > div.container.mt-4 > div > div:nth-child(5) > button:nth-child(1)"
   )$clickElement()
-  Sys.sleep(1)
+  Sys.sleep(5)
   html <- cliente$getPageSource()[[1]] |> read_html()
-  Sys.sleep(1)
+  Sys.sleep(3)
   cat("Vuelta", i, "| pagina 1\n")
   agendaeventos <- rbind(agendaeventos,
     tibble(
@@ -256,22 +256,22 @@ for (i in seq_along(lunes$anio[1:2])) {
     hora = html |> html_elements(".card-body > .d-inline:nth-child(4)") |> html_text2(),
     lugar = html |> html_elements(".card-body > .d-inline:nth-child(5)") |> html_text2()
   ))
-  Sys.sleep(1)
+  Sys.sleep(3)
   cliente$findElement("css", "body")$sendKeysToElement(list(key = "end"))
-  Sys.sleep(1)
+  Sys.sleep(3)
   n_pags <- cliente$findElement("css selector",
                                 "#contenedor4 > div.row.m-2.d-flex.justify-content-center > nav > ul > li:nth-child(3) > label:nth-child(3)"
                                 )$getElementText()[[1]] |> as.integer() - 1
-  Sys.sleep(1)
+  Sys.sleep(3)
 
   for (p in seq_len(n_pags)) {
     cat("Vuelta", i, "| pagina", p+1, "\n")
     cliente$findElement("css selector",
                         "#contenedor4 > div.row.m-2.d-flex.justify-content-center > nav > ul > li:nth-child(4) > a"
                         )$clickElement()
-    Sys.sleep(1)
+    Sys.sleep(3)
     cliente$findElement("css", "body")$sendKeysToElement(list(key = "end"))
-    Sys.sleep(1)
+    Sys.sleep(3)
     html <- cliente$getPageSource()[[1]] |> read_html()
     agendaeventos <-  rbind(agendaeventos, data.frame(
       fecha = html |> html_elements(".card-body > .d-inline:nth-child(2)") |> html_text2(),
@@ -281,7 +281,7 @@ for (i in seq_along(lunes$anio[1:2])) {
       hora = html |> html_elements(".card-body > .d-inline:nth-child(4)") |> html_text2(),
       lugar = html |> html_elements(".card-body > .d-inline:nth-child(5)") |> html_text2()
     ))
-    Sys.sleep(1)
+    Sys.sleep(3)
   }
   cat("------------------------\n")
 }
