@@ -8,8 +8,8 @@ miscript <- "D:/Google_Drive_ok/R/github_control/web-scraping-con-r/sesiones/ses
 
 taskscheduler_create(taskname = "cron_windows", rscript = miscript, schedule = "DAILY", starttime = "13:32")
 
-taskscheduleR::taskscheduler_ls()
-taskscheduleR::taskscheduler_delete(taskname = "cron_windows")
+# taskscheduleR::taskscheduler_ls()
+# taskscheduleR::taskscheduler_delete(taskname = "cron_windows")
 
 # En la Raspberry Pi
 require(cronR)
