@@ -1,0 +1,78 @@
+---
+title: "Informe Web Scraping"
+author: "Agustín Nieto"
+date: '`r Sys.Date() |> format("%d/%m/%Y")`'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Primer paso: raspamos los titulares de *El Mundo*
+
+En este segmento de código creamos una función y la corremos para recuperar los últimos titulares del periódico El Mundo de España. Los datos se guardan en formato **rds**.
+
+```{r rves}
+scraping_EM <- function (x){
+  rvest::read_html(x) |>
+    rvest::html_elements(".ue-c-cover-content__headline-group") |>
+    rvest::html_text() |>
+    tibble::as_tibble() |>
+    dplyr::rename(titulo = value)
+}
+
+el_mundo <- scraping_EM("https://www.elmundo.es/espana.html")
+
+saveRDS(el_mundo, paste0("el_mundo/el_mundo_",
+                 format(Sys.time(), format = "%Y_%m_%d_%H_%M_%S"),
+                 ".rds"))
+
+el_mundo |> DT::datatable()
+
+```
+
+## Segundo paso
+
+Listamos el contenido de la carpeta `el_mundo`: 
+
+```{r listado, warning=FALSE}
+tibble::tibble(archivos = list.files("el_mundo/")) |> DT::datatable()
+```
+
+## Tercer paso
+
+Subimos este R Markdown a la web
+
+```{}
+# corremos el documento rmarkdown
+rmarkdown::render("./sesiones/sesion07/informe_web_scraping.Rmd")
+
+# datos de acceso FTP
+login <- "curso@estudiosmaritimossociales.org"
+dotenv::load_dot_env("./sesiones/ftp.env")
+
+uploadsite <- "ftp://estudiosmaritimossociales.org/"
+
+# nombre del archivo pero sin la extensión (rds, csv o cualquier otra)
+uploadfilename <- "informe_web_scraping"
+
+yourlocalfilelocation <- "./sesiones/sesion07/informe_web_scraping.html"
+
+RCurl::ftpUpload(yourlocalfilelocation,
+          paste(uploadsite,"/",uploadfilename,".html",sep=""),
+          userpwd=paste(login,Sys.getenv("SECRET"),sep=":"))
+```
+
+## Usamos el administrador de tareas para automatizar la ejecución del script
+
+```{}
+miscript <- "D:/Google_Drive_ok/R/github_control/web-scraping-con-r/sesiones/sesion07/informe_web_scraping.R"
+
+taskscheduleR::taskscheduler_create(taskname = "cron_windows_informe", rscript = miscript, schedule = "HOURLY", starttime = "21:25", modifier = 2)
+
+```
+
+## [Accedemos al informe online](https://estudiosmaritimossociales.org/uploads/informe_web_scraping.html)
+
+
