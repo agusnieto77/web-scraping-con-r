@@ -6,3 +6,8 @@
 *.log
 *.rds
 *.Rhistory
+consultas/
+GPT_KEY.R
+sueltos/
+para_sesion_6.R
+informe_web_scraping.R
