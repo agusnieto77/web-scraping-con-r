@@ -17,7 +17,7 @@ repo <- tibble::tibble()
 repo
 
 ## Corremos un ciclo for
-for (i in urls) {
+for (i in urls[1:4]) {
   html <- read_html(httr::GET(i))
   repo <- rbind(repo, tibble::tibble(
     titulo = html |> html_elements("a.description-info") |> html_text2(),
@@ -72,7 +72,7 @@ descripcion <- c()
 link <- c()
 
 ## Corremos un ciclo for
-for (i in links) {
+for (i in links[1:10]) {
   html <- read_html(httr::GET(i))
     titulo <- append(titulo, html |> html_element("h2.page-header.first-page-header") |> html_text2())
     autoria <- append(autoria, html |> html_elements(".col-sm-4 > div.simple-item-view-authors.item-page-field-wrapper.table > div") |> html_text2() |> paste(collapse = "; "))
@@ -108,7 +108,7 @@ urls <- c(paste0("https://agendaeventos.sercotec.cl/Centro/Detalle?regionId=",0:
 cursos <- data.frame()
 
 ## Corremos un ciclo for
-for (i in urls) {
+for (i in urls[c(1,20,22,40,43,60)]) {
   html <- read_html(i)
   cursos <-  rbind(cursos, data.frame(
     fecha = html |> html_elements(".card-body > .d-inline:nth-child(2)") |> html_text2(),
@@ -131,7 +131,7 @@ urls <- paste0("https://eligemejor.sence.cl/BuscarCursoNuevo/DetalleCursoDcp?cur
 cursos <- data.frame()
 
 ## Corremos un ciclo for
-for (i in urls) {
+for (i in urls[1:10]) {
   html <- read_html(i)
   cursos <-  rbind(cursos, data.frame(
     titulo = html |> html_elements(".fuenteTitulo") |> html_text2(),

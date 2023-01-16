@@ -89,9 +89,9 @@ html <- read_html(url)
 ## Creamos el objeto NODOS con los elementos contenidos en el objeto html
 nodos <- html_elements(html, ".product-component-name")
 
-## Cremos el vector de textos xon los productos con la función html_text()
+## Creamos el vector de textos con los productos con la función html_text()
 nodos |> html_text()
-## Cremos el vector de textos xon los productos con la función html_text2()
+## Creamos el vector de textos con los productos con la función html_text2()
 nodos |> html_text2()
 
 ## EJEMPLO TABLAS

@@ -18,7 +18,7 @@ data_url <- httr::content(get_url, as = "parsed")
 
 data_url$items[[1]]$volumeInfo$title
 
-data_url$items[[2]][[5]][[1]]
+data_url$items[[1]][[5]][[1]]
 
 get_url_text <- httr::content(get_url, "text")
 
@@ -88,6 +88,12 @@ pag |> rvest::html_elements(css = "article p") |> rvest::html_text2()
 
 # Análisis de enlaces ---------------------------------
 
-pag |> rvest::html_elements(xpath = "//article //a") |> rvest::html_attr("href")
+pag |> rvest::html_elements(xpath = "//a") |> rvest::html_attr("href")
 
-pag |> rvest::html_elements(css = "article a") |> rvest::html_attr("href")
+pag |> rvest::html_elements(css = "a") |> rvest::html_attr("href")
+
+tibble::tibble(
+  h3 = pag |> rvest::html_elements(css = "article h3") |> rvest::html_text2(),
+  p = pag |> rvest::html_elements(css = "article > p") |> rvest::html_text2(),
+  a = pag |> rvest::html_elements(css = "article h3 a") |> rvest::html_attr("href")
+)

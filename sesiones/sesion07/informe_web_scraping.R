@@ -15,5 +15,3 @@ yourlocalfilelocation <- "D:/Google_Drive_ok/R/github_control/web-scraping-con-r
 RCurl::ftpUpload(yourlocalfilelocation,
                  paste(uploadsite,"/",uploadfilename,".html",sep=""),
                  userpwd=paste(login,Sys.getenv("SECRET"),sep=":"))
-
-# source("informe_web_scraping.R")

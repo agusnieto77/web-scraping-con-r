@@ -1,7 +1,7 @@
 ---
 title: "Informe Web Scraping"
 author: "Agustín Nieto"
-date: '`r Sys.Date() |> format("%d/%m/%Y")`'
+date: '`r Sys.time()`'
 output: html_document
 ---
 
@@ -67,9 +67,9 @@ RCurl::ftpUpload(yourlocalfilelocation,
 ## Usamos el administrador de tareas para automatizar la ejecución del script
 
 ```{}
-miscript <- "D:/Google_Drive_ok/R/github_control/web-scraping-con-r/sesiones/sesion07/informe_web_scraping.R"
+miscriptftp <- system.file("extdata", "informe_web_scraping.R", package = "taskscheduleR")
 
-taskscheduleR::taskscheduler_create(taskname = "cron_windows_informe", rscript = miscript, schedule = "HOURLY", starttime = "21:25", modifier = 2)
+taskscheduleR::taskscheduler_create(taskname = "cron_windows_informe", rscript = miscriptftp, schedule = "HOURLY", starttime = "20:00", modifier = 2)
 
 ```
 

@@ -4,12 +4,9 @@
 # En la PC con Windows
 require(taskscheduleR)
 
-miscript <- "D:/Google_Drive_ok/R/github_control/web-scraping-con-r/sesiones/sesion07/tarea_windows.R"
+miscriptftp <- system.file("extdata", "informe_web_scraping.R", package = "taskscheduleR")
 
-taskscheduler_create(taskname = "cron_windows", rscript = miscript, schedule = "DAILY", starttime = "13:32")
-
-# taskscheduleR::taskscheduler_ls()
-# taskscheduleR::taskscheduler_delete(taskname = "cron_windows")
+taskscheduler_create(taskname = "cron_windows_informe", rscript = miscriptftp, schedule = "HOURLY", starttime = "20:00", modifier = 2)
 
 # En la Raspberry Pi
 require(cronR)
